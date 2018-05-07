@@ -18,6 +18,11 @@ By default, it will look for the following processes:
 AdobeUpdateService.exe
 AGSService.exe
 armsvc.exe
+CoreSync.exe
+Adobe Desktop Process.exe
+Adobe Installer.exe
+AdobeIPCBroker.exe
+CCXProcess.exe
 ```
 
 The run time of each iteration is linear to the number of processes being looked for, but also to the total number of processes running on the system.
