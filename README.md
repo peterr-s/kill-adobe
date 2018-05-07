@@ -4,7 +4,7 @@ The background processes spawned by Adobe CC were eating up a lot of my disk cyc
 
 ## Usage
 
-This program should not need administrator privileges, but I have confirmed that it works differently depending on whether they are present. If it does not work in restricted mode, try running with higher permissions.
+This program might not necessarily need administrator privileges, but I have confirmed that it works differently depending on whether they are present. If it does not work in restricted mode, try running with higher permissions.
 
 It will also accept the names of other processes to kill as command line arguments, e.g. `kill-adobe.exe foo.exe`.
 
@@ -21,6 +21,12 @@ armsvc.exe
 ```
 
 The run time of each iteration is linear to the number of processes being looked for, but also to the total number of processes running on the system.
+
+## Compilation
+
+If compiled in a debug configuration, it will keep a terminal window open and log its activities. Else it will disappear into the background and work silently.
+
+It does not currently run properly when compiled as x64, though an x64 configuration is present in the VS project. I plan on fixing this but it is not a high priority since it won't make much of a difference here if at all.
 
 ## License
 
