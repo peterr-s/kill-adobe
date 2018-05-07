@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <wchar.h>
 
+#define PREDEF_PROC_MAX_IDX 7
+
 #ifndef NDEBUG
 #include <stdio.h>
 #endif
@@ -35,7 +37,7 @@ int main(int argc, char* argv[])
 	process.dwSize = sizeof(PROCESSENTRY32); /* for the API call that generates a list */
 
 	/* create process name array */
-	proc_name_ct = argc + 2;
+	proc_name_ct = argc + PREDEF_PROC_MAX_IDX;
 	if (!(proc_names = calloc(proc_name_ct, sizeof(wchar_t)))) /* calloc so that frees are valid in case string transfer is aborted */
 	{
 		status = ERR_ALLOC;
@@ -44,17 +46,23 @@ int main(int argc, char* argv[])
 	proc_names[0] = L"AdobeUpdateService.exe";
 	proc_names[1] = L"AGSService.exe";
 	proc_names[2] = L"armsvc.exe";
-	for (i = 3; i < proc_name_ct; i++)
+	proc_names[3] = L"CoreSync.exe";
+	proc_names[4] = L"Adobe\ Desktop\ Process.exe";
+	proc_names[5] = L"Adobe\ Installer.exe";
+	proc_names[6] = L"AdobeIPCBroker.exe";
+	proc_names[7] = L"CCXProcess.exe";
+
+	for (i = 8; i < proc_name_ct; i++)
 	{
 		size_t len;
 
-		len = strlen(argv[i - 2]) + 1;
+		len = strlen(argv[i - PREDEF_PROC_MAX_IDX]) + 1;
 		if (!(proc_names[i] = malloc(len * sizeof(wchar_t))))
 		{
 			status = ERR_ALLOC;
 			goto cleanup;
 		}
-		if ((len - 1) != mbstowcs(proc_names[i], argv[i - 2], len))
+		if ((len - 1) != mbstowcs(proc_names[i], argv[i - PREDEF_PROC_MAX_IDX], len))
 		{
 			status = ERR_STRING;
 			goto cleanup;
